@@ -6,8 +6,12 @@ const postController = require("../controllers/postController")
 
 router.get("/" , postController.index)
 
-//funzione show
+//funzione create
+router.get("/create" , postController.create)
 
+//funzione show
 router.get("/:slug", postController.show)
+
+
 
 module.exports = router;

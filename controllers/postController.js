@@ -27,6 +27,21 @@ function index(req,res){
     res.send("Post list")
 }
 
+function create(req,res){
+    res.format({
+        html: () => {
+            
+            let html = ["<h1>Creazione nuovo post</h1>"]
+            res.type("html").send(html.join(""))
+        },
+        default: () =>{
+            res.status(406).send("Not Acceptable")
+        }
+    })
+    return;
+
+}
+
 function show(req,res){
     // recupero l'id dalla richiesta
 
@@ -36,10 +51,10 @@ function show(req,res){
 
     res.json(post)
 
-
 }
 
 module.exports = {
     index,
     show,
+    create,
 }
