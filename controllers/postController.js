@@ -30,9 +30,11 @@ function index(req,res){
 function show(req,res){
     // recupero l'id dalla richiesta
 
-    const postId = req.params.id;
+    const postSlug = req.params.slug;
 
-    const post = postsArray.find( post => post.id == postId);
+    const post = postsArray.find( post => post.slug == postSlug);
+
+    res.json(post)
 
 
 }

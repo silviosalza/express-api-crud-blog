@@ -8,6 +8,6 @@ router.get("/" , postController.index)
 
 //funzione show
 
-router.get("/:id", postController.show)
+router.get("/:slug", postController.show)
 
 module.exports = router;
