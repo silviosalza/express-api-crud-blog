@@ -10,8 +10,11 @@ function index(req,res){
             for (const post of postsArray){
                 html.push(`<li><h3>${post.title}</h3></li>
                 <li>${post.content}</li>
+                <li><h5><a href="posts/${post.slug}">View</a></h5></li>
                 <li><img src="imgs/posts/${post.image}" alt ="" style="width:400px" > </li>
-                <li><h5>Tags: ${post.tags}</h5></li>`)
+                <li><h5>Tags: ${post.tags}</h5></li>
+                `)
+
             }
 
             html.push("</ul>")
