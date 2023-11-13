@@ -12,6 +12,10 @@ router.get("/create" , postController.create)
 //funzione show
 router.get("/:slug", postController.show)
 
+//funzione download
+
+router.get("/:slug/download" , postController.downloadImg)
+
 
 
 module.exports = router;

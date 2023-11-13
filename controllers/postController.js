@@ -1,4 +1,5 @@
 const postsArray = require("../db/db.js");
+const path = require("path")
 
 function index(req,res){
     res.format({
@@ -43,18 +44,39 @@ function create(req,res){
 }
 
 function show(req,res){
-    // recupero l'id dalla richiesta
-
+    // recupero lo slug dalla richiesta
     const postSlug = req.params.slug;
-
     const post = postsArray.find( post => post.slug == postSlug);
 
-    res.json(post)
+    if(!post){
+        res.status(404).send(`Post con slug ${post.slug} non trovato`);
+        return
+    }
+
+    res.json(post);
 
 }
+
+function downloadImg(req,res){
+
+    const postSlug = req.params.slug;
+    const post = postsArray.find( post => post.slug == postSlug);
+
+    if(!post){
+        res.status(404).send(`Post con slug ${post.slug} non trovato`);
+        return
+    }
+
+    let filePath = path.resolve(__dirname, "..", "public", "imgs", "posts", post.image)
+
+    res.download(filePath);
+
+}
+
 
 module.exports = {
     index,
     show,
     create,
+    downloadImg,
 }
