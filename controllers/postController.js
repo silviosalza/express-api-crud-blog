@@ -5,7 +5,7 @@ function index(req,res){
     res.format({
         html: () => {
             
-            let html = ["<h1>Post</h1>"]
+            let html = [`<h1>Post</h1><h3><a href="posts/create">Crea Post</a></h3>`]
             html.push("<ul>")
             for (const post of postsArray){
                 html.push(`<li><h3>${post.title}</h3></li>
