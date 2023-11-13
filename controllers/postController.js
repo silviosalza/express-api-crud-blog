@@ -27,6 +27,17 @@ function index(req,res){
     res.send("Post list")
 }
 
+function show(req,res){
+    // recupero l'id dalla richiesta
+
+    const postId = req.params.id;
+
+    const post = postsArray.find( post => post.id == postId);
+
+
+}
+
 module.exports = {
     index,
+    show,
 }
