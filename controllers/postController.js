@@ -1,4 +1,4 @@
-const postsArray = require("../db/db.js");
+const postsArray = require("../db/db.json");
 const path = require("path")
 
 function index(req,res){
