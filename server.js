@@ -16,11 +16,6 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
-
-
-
-
-
 app.get("/" , homeController.index);
 //uso rotte importate dal file postRouter
 app.use("/posts" , postRouter)
