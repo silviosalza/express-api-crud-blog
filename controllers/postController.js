@@ -1,6 +1,8 @@
 const { log } = require("console");
 const postsArray = require("../db/db.json");
 const path = require("path");
+const {kebabCase} = require("lodash");
+const fs = require("fs");
 const { loadavg } = require("os");
 
 function index(req,res){
@@ -63,7 +65,24 @@ function show(req,res){
 
 function store(req,res){
     console.log(req.body);
-    res.send("ok")
+
+//leggo db
+const dbPath = path.resolve(__dirname, '..', 'db', 'db.json');
+const postArray = require(dbPath);
+
+//aggiungo post al db
+postArray.push({
+    ...req.body,
+    slug: kebabCase(req.body.title)
+})
+
+//converto db in json
+const json = JSON.stringify(postArray, null, 2);
+
+//scrivo json su file
+fs.writeFileSync(dbPath, json);
+res.json(postArray[postArray.length - 1])
+
 }
 
 function downloadImg(req,res){
