@@ -69,11 +69,17 @@ function store(req,res){
 //leggo db
 const dbPath = path.resolve(__dirname, '..', 'db', 'db.json');
 const postArray = require(dbPath);
+let slug = kebabCase(req.body.title);
+let count = 1
+while (postArray.find((post) => post.slug === slug)) {
+    slug = kebabCase(`${req.body.title}-${count}`);
+    count += 1;
+  }
 
 //aggiungo post al db
 postArray.push({
     ...req.body,
-    slug: kebabCase(req.body.title)
+    slug: slug,
 })
 
 //converto db in json
@@ -82,6 +88,7 @@ const json = JSON.stringify(postArray, null, 2);
 //scrivo json su file
 fs.writeFileSync(dbPath, json);
 res.json(postArray[postArray.length - 1])
+console.log(postArray[postArray.length - 1])
 
 }
 
