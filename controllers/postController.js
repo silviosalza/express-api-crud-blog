@@ -95,26 +95,35 @@ function destroy(req, res) {
 
     const dbPath = path.resolve(__dirname, '..', 'db', 'db.json');
     const postArray = require(dbPath);
-  
-    // Trova l'indice del post da eliminare
-    const postIndex = postArray.findIndex((post) => post.slug == req.params.slug);
-    console.log(postIndex);
-  
-    // Verifico se il post è stato trovato
-    if (postIndex !== -1) {
-      // Rimuovi il post dall'array
-      postArray.splice(postIndex, 1);
-      // Converto l'array in JSON
-      const json = JSON.stringify(postArray, null, 2);
-      // Riscrivo il file db.json
-      fs.writeFileSync(dbPath, json);
-      res.json(postArray);
-    
-    } else {
 
-      // Se il post non è stato trovato, messaggio di errore
-      res.status(404).json({ error: 'Post non trovato' });
-    }
+    res.format({
+        html: () => {
+          res.redirect("/posts");
+        },
+        default: () => {
+            // Trova l'indice del post da eliminare
+            const postIndex = postArray.findIndex((post) => post.slug == req.params.slug);
+            console.log(postIndex);
+          
+            // Verifico se il post è stato trovato
+            if (postIndex !== -1) {
+              // Rimuovi il post dall'array
+              postArray.splice(postIndex, 1);
+              // Converto l'array in JSON
+              const json = JSON.stringify(postArray, null, 2);
+              // Riscrivo il file db.json
+              fs.writeFileSync(dbPath, json);
+              res.json(postArray);
+            
+            } else {
+        
+              // Se il post non è stato trovato, messaggio di errore
+              res.status(404).json({ error: 'Post non trovato' });
+            }
+          
+        },
+      });
+  
   }
 
 function downloadImg(req, res) {
