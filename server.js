@@ -12,8 +12,16 @@ const app = express();
 //configuro file statici con nome cartella
 app.use(express.static("public"));
 
-app.get("/" , homeController.index);
+//registro il tipo di bodyparser
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 
+
+
+
+
+
+app.get("/" , homeController.index);
 //uso rotte importate dal file postRouter
 app.use("/posts" , postRouter)
 

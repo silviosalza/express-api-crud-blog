@@ -1,5 +1,7 @@
+const { log } = require("console");
 const postsArray = require("../db/db.json");
-const path = require("path")
+const path = require("path");
+const { loadavg } = require("os");
 
 function index(req,res){
     res.format({
@@ -57,7 +59,11 @@ function show(req,res){
     }
 
     res.json(post);
+}
 
+function store(req,res){
+    console.log(req.body);
+    res.send("ok")
 }
 
 function downloadImg(req,res){
@@ -81,5 +87,6 @@ module.exports = {
     index,
     show,
     create,
+    store,
     downloadImg,
 }
