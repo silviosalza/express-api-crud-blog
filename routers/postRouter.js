@@ -9,10 +9,15 @@ router.get("/" , postController.index)
 
 //funzione create
 router.get("/create" , postController.create)
+
+//funzione store
 router.post("/", multer().none() , postController.store)
 
 //funzione show
 router.get("/:slug", postController.show)
+
+//funzione delete
+router.delete("/:slug" , postController.destroy)
 
 //funzione download
 
