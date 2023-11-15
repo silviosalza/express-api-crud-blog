@@ -1,8 +1,12 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const postController = require("./controllers/postController")
 const homeController = require("./controllers/homeController")
-const postRouter = require("./routers/postRouter")
+const postRouter = require("./routers/postRouter");
+const errorFormatterMiddleware = require('./middlewares/errorFormatter');
+const routesLoggerMiddleware = require('./middlewares/routesLogger');
+const routeNotFoundMiddleware = require('./middlewares/routeNotFound');
+const adminRouter = require("./routers/adminRouter")
+
 
 dotenv.config();
 
@@ -16,9 +20,17 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
+//middleware delle rotte
+app.use(routesLoggerMiddleware)
+
 app.get("/" , homeController.index);
 //uso rotte importate dal file postRouter
 app.use("/posts" , postRouter)
+app.use("/admin" , adminRouter)
+
+//gestione errori sempre all'ultimo
+app.use(routeNotFoundMiddleware)
+app.use(errorFormatterMiddleware)
 
 
 app.listen(process.env.PORT || 3000 , () =>{
